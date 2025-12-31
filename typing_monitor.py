@@ -86,21 +86,25 @@ def run_monitor():
             while True:
                 keystroke = await mon.async_get()
 
-                # Any keystroke clears the tab color (resets title bar)
+                # Any keystroke triggers flip to black for THIS session only
                 if target_session:
+                    # Change only this session's color directly
                     try:
                         profile = await target_session.async_get_profile()
-                        # Clear tab color (reset title bar to default)
-                        await profile.async_set_use_tab_color(False)
-                        await profile.async_set_use_tab_color_dark(False)
+                        black = iterm2.Color(0, 0, 0)
+                        white = iterm2.Color(255, 255, 255)
+                        await profile.async_set_background_color(black)
+                        await profile.async_set_background_color_dark(black)
+                        await profile.async_set_foreground_color(white)
+                        await profile.async_set_foreground_color_dark(white)
                     except Exception:
                         pass
                 else:
-                    # Fallback: use tab_color.py (will use process tree)
+                    # Fallback: use window_color.py (will use process tree)
                     subprocess.Popen(
                         [VENV_PYTHON,
-                         os.path.join(SCRIPT_DIR, 'tab_color.py'),
-                         'clear'],
+                         os.path.join(SCRIPT_DIR, 'window_color.py'),
+                         'black'],
                         stdout=subprocess.DEVNULL,
                         stderr=subprocess.DEVNULL,
                     )

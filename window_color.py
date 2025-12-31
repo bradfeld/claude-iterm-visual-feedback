@@ -69,6 +69,11 @@ BASE_COLORS_255 = {
     "brown":  (25, 8, 0),      # Same as orange (synonym)
     "black":  (0, 0, 0),       # Reset to black (no tint)
     "white":  (255, 255, 255), # Bright white for flash
+    # Softer "done" colors - noticeable but not harsh
+    "done":   (50, 50, 55),    # Soft gray - default done indicator
+    "dim":    (35, 35, 40),    # Very subtle lift
+    "glow":   (60, 50, 35),    # Warm amber glow
+    "cool":   (35, 45, 60),    # Cool blue tint
 }
 
 # Foreground colors - dark for light backgrounds, light for dark backgrounds
