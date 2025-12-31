@@ -69,11 +69,11 @@ BASE_COLORS_255 = {
     "brown":  (25, 8, 0),      # Same as orange (synonym)
     "black":  (0, 0, 0),       # Reset to black (no tint)
     "white":  (255, 255, 255), # Bright white for flash
-    # Softer "done" colors - noticeable but not harsh
-    "done":   (50, 50, 55),    # Soft gray - default done indicator
-    "dim":    (35, 35, 40),    # Very subtle lift
-    "glow":   (60, 50, 35),    # Warm amber glow
-    "cool":   (35, 45, 60),    # Cool blue tint
+    # "Done" colors - clearly visible but not blinding
+    "done":   (120, 120, 130), # Medium gray - clearly visible
+    "dim":    (80, 80, 90),    # Subtle gray
+    "glow":   (140, 110, 70),  # Warm amber - clearly visible
+    "cool":   (12, 15, 28),    # Very dark blue - just off black
 }
 
 # Foreground colors - dark for light backgrounds, light for dark backgrounds
@@ -126,14 +126,11 @@ async def change_session_background(session, backgrounds, target_color=None):
     profile = await session.async_get_profile()
 
     if target_color:
-        # Set specific color by name
-        for name, color in backgrounds:
-            if name == target_color:
-                next_bg = color
-                break
-        else:
-            # Color name not found, ignore
+        # Set specific color by name - look up directly from BASE_COLORS_255
+        if target_color not in BASE_COLORS_255:
             return
+        r, g, b = BASE_COLORS_255[target_color]
+        next_bg = iterm2.Color(r, g, b)
     else:
         # Cycle to next color
         current_background = profile.background_color
