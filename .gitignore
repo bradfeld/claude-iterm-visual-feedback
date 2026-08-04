@@ -1,0 +1,18 @@
+# Secrets. Nothing has leaked here — this is preventive. A .env is the usual
+# place credentials land locally, and there was no rule stopping a commit.
+.env
+.env.*
+!.env.example
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
